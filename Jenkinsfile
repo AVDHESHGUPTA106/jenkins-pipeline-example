@@ -26,7 +26,7 @@ pipeline {
                 def region = sh(returnStdout: true, script: "terraform output aws_region").trim()
                 echo dd_ip
                 echo region
-                variableMap = builder.variable{"publicIp" : dd_ip, "awsRegion": region}
+                variableMap = builder.variable{"publicIp" dd_ip, "awsRegion" region}
                 }
               }
                 }
@@ -37,7 +37,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'printenv'
-                sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${variableMap}", label: 'Running smoke tests'
+                sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${builder.toString()}", label: 'Running smoke tests'
             }
         }
      }
