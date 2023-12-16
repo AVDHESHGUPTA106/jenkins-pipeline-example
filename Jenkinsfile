@@ -30,22 +30,12 @@ pipeline {
                 }
             }
         }
-        stage('Terraform destroy') {
-            steps {
-                dir(path: 'tf-tuts') {
-                script {
-                withCredentials([aws(credentialsId: "AWS-Jenkins-Credentials")]) {
-                sh 'terraform destroy --auto-approve'
-                }
-              }
-                }
-            }
-        }
+        
 
         stage('Build') {
             steps {
                 sh 'printenv'
-                sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${variableMap}", label: 'Running smoke tests'
+                sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=\"${variableMap}\"", label: 'Running smoke tests'
             }
         }
      }
