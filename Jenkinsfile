@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'printenv'
-                sh 'mvn -B clean package'
+                sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=authsecret", label: 'Running smoke tests'
             }
         }
      }
