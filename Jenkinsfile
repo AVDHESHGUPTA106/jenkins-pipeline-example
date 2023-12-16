@@ -24,7 +24,7 @@ pipeline {
                 def region = sh(returnStdout: true, script: "terraform output aws_region").trim()
                 echo dd_ip
                 echo region
-                variableMap[PublicIp : dd_ip, Region: region]
+                variableMap = [PublicIp : dd_ip, Region: region]
                 }
               }
                 }
