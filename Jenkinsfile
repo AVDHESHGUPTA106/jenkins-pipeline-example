@@ -6,7 +6,6 @@ pipeline {
       maven 'maven' 
       jdk 'Java' 
     }
-    def dd_ip
     stages {
         stage('Terraform init') {
             steps {
