@@ -15,6 +15,7 @@ public class AppTest
     @Test
     public void shouldAnswerWithTrue()
     {
+        String auth0Secret = System.getProperty("auth0Secret");
         System.out.println(System.getProperty("auth0Secret"));
         assertTrue( true );
     }
