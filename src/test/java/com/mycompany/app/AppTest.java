@@ -23,7 +23,7 @@ public class AppTest
         System.out.println(System.getProperty("auth0Secret"));
         TypeReference<TestModel> listType = new TypeReference<TestModel>() {};
         TestModel auth0Secret1 = objectMapper.readValue(System.getProperty("auth0Secret"), listType);
-        System.out.println(auth0Secret1);
+        System.out.println(auth0Secret1.getAwsRegion()+"---"+auth0Secret1.getPublicIp());
         assertTrue( true );
     }
 }
