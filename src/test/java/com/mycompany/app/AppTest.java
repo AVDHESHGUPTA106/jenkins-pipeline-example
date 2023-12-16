@@ -20,9 +20,10 @@ public class AppTest
     @Test
     public void shouldAnswerWithTrue() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(System.getProperty("auth0Secret"));
         TypeReference<TestModel> listType = new TypeReference<TestModel>() {};
         TestModel auth0Secret1 = objectMapper.readValue(System.getProperty("auth0Secret"), listType);
-        System.out.println(System.getProperty("auth0Secret"));
+
         System.out.println(auth0Secret1);
         assertTrue( true );
     }

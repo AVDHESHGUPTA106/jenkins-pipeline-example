@@ -1,5 +1,6 @@
-import groovy.json.JsonOutput
-def variableMap = []
+import groovy.json.JsonBuilder
+def variableMap
+JsonBuilder builder = new JsonBuilder()
 pipeline {
     agent any
 
@@ -25,7 +26,7 @@ pipeline {
                 def region = sh(returnStdout: true, script: "terraform output aws_region").trim()
                 echo dd_ip
                 echo region
-                variableMap = ["publicIp" : dd_ip, "awsRegion": region]
+                variableMap = builder.variable{"publicIp" : dd_ip, "awsRegion": region}
                 }
               }
                 }
@@ -36,7 +37,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'printenv'
-                sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${JsonOutput.toJson(variableMap)}", label: 'Running smoke tests'
+                sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${variableMap}", label: 'Running smoke tests'
             }
         }
      }
