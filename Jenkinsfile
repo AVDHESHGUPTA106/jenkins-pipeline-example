@@ -9,11 +9,14 @@ pipeline {
     stages {
         stage('Terraform init') {
             steps {
+                dir(path: 'tf-tuts') {
                 sh 'terraform init'
+                }
             }
         }
         stage('Terraform apply') {
             steps {
+                dir(path: 'tf-tuts') {
                 script {
                 withCredentials([aws(credentialsId: "AWS-Jenkins-Credentials")]) {
                 sh 'terraform apply --auto-approve'
@@ -25,15 +28,18 @@ pipeline {
                 variables['region'] = region
                 }
               }
+                }
             }
         }
         stage('Terraform destroy') {
             steps {
+                dir(path: 'tf-tuts') {
                 script {
                 withCredentials([aws(credentialsId: "AWS-Jenkins-Credentials")]) {
                 sh 'terraform destroy --auto-approve'
                 }
               }
+                }
             }
         }
 
