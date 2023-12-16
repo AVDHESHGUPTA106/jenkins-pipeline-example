@@ -1,4 +1,4 @@
-def variables
+def variableMap = []
 pipeline {
     agent any
 
@@ -24,8 +24,7 @@ pipeline {
                 def region = sh(returnStdout: true, script: "terraform output aws_region").trim()
                 echo dd_ip
                 echo region
-                variables['dd_ip'] = dd_ip
-                variables['region'] = region
+                variableMap[PublicIp : dd_ip, Region: region]
                 }
               }
                 }
@@ -46,7 +45,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'printenv'
-                sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${variables}", label: 'Running smoke tests'
+                sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${variableMap}", label: 'Running smoke tests'
             }
         }
      }
