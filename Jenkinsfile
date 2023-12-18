@@ -21,7 +21,12 @@ pipeline {
                 dir(path: 'tf-tuts') {
                 script {
                 withCredentials([aws(credentialsId: "AWS-Jenkins-Credentials")]) {
-                sh 'terraform apply --auto-approve'
+                    sh(
+                            script: """
+                                        terraform apply --auto-approve
+                                    """,
+                            label: "Deploying service layer in AWS"
+                    )
                 def dd_ip = sh(returnStdout: true, script: "terraform output public_ip").trim()
                 def region = sh(returnStdout: true, script: "terraform output aws_region").trim()
                 echo dd_ip
