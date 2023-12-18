@@ -21,7 +21,7 @@ public class AppTest
     private static final String AWS_REGION = System.getProperty("awsRegion");
     @Test
     public void shouldAnswerWithTrue() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
+        // ObjectMapper objectMapper = new ObjectMapper();
         System.out.println(System.getProperty("auth0Secret"));
         System.out.println(AWS_REGION);
 //        TypeReference<TestModel> listType = new TypeReference<TestModel>() {};
