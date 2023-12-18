@@ -13,9 +13,9 @@ output "aws_region" {
   value = data.aws_region.current.name
 }
 
-output "aws_tsdb_database_name" {
-  value = data.aws_timestreamwrite_database.timestream_db.database_name
-}
+# output "aws_tsdb_database_name" {
+#   value = data.aws_timestreamwrite_database.timestream_db.database_name
+# }
 
 # output "aws_tsdb_table_name" {
 #   value = data.aws_region.current.name
