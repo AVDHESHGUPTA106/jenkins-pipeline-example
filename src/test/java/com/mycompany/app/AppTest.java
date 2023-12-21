@@ -18,7 +18,7 @@ public class AppTest
      * Rigorous Test :-)
      */
 
-    private static final String AWS_REGION = System.getProperty("awsRegion");
+    private static final String AWS_REGION = System.getProperty("awsRegion","XYZ");
     @Test
     public void shouldAnswerWithTrue() throws JsonProcessingException {
         // ObjectMapper objectMapper = new ObjectMapper();
