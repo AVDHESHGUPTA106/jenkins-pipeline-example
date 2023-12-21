@@ -56,7 +56,7 @@ pipeline {
                 env.GIT_ORG_NAME =env.GIT_REPO_NAME.tokenize('/').first()
                 env.GIT_SERVICE_NAME =env.GIT_REPO_NAME.tokenize('/').last()
                 gitMetaData = gitMetaData(env.GIT_URL)
-                env.avdhesh = getMetaData
+                env.avdhesh = gitMetaData
                 def ex = "test -Dauth0Secret=${variableMap.publicIp} -DawsRegion=${variableMap.awsRegion}"
                 sh 'printenv'
                 runMaven(ex, 'Running smoke tests')
