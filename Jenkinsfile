@@ -9,13 +9,13 @@ pipeline {
       jdk 'Java' 
     }
     stages {
-//        stage('Terraform init') {
-//            steps {
-//                dir(path: 'tf-tuts') {
-//                sh 'terraform init'
-//                }
-//            }
-//        }
+        stage('Terraform init') {
+            steps {
+                dir(path: 'tf-tuts') {
+                sh 'terraform init'
+                }
+            }
+        }
 //        stage('Terraform apply') {
 //            steps {
 //                dir(path: 'tf-tuts') {
@@ -50,11 +50,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'printenv'
+                script {
                 variableMap = [publicIp : "10.10.10.10", awsRegion:"us-east-1"]
+                sh 'printenv'
                 runMaven('test -Dauth0Secret=$variableMap.publicIp -DawsRegion=$variableMap.awsRegion', 'Running smoke tests')
                 //sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${variableMap.publicIp} -DawsRegion=${variableMap.awsRegion}", label: 'Running smoke tests'
             }
+        }
         }
      }
     post {
