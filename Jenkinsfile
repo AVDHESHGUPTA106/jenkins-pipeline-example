@@ -51,7 +51,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'printenv'
-                sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${variableMap.publicIp} -DawsRegion=${variableMap.awsRegion}", label: 'Running smoke tests'
+                runMaven('test -Dauth0Secret=$SECRET -Dauth0Secret=${variableMap.publicIp} -DawsRegion=${variableMap.awsRegion}', 'Running smoke tests')
+                //sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${variableMap.publicIp} -DawsRegion=${variableMap.awsRegion}", label: 'Running smoke tests'
             }
         }
      }
@@ -62,5 +63,11 @@ pipeline {
         testResults: '*/test-reports/.xml'
       )
       }
-   } 
+   }
+}
+
+String runMaven(final String steps, final String label) {
+    container('maven') {
+        sh script: "mvn --no-transfer-progress -B -e ${steps}", label: label
+    }
 }
