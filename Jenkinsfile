@@ -55,6 +55,8 @@ pipeline {
                 env.GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*?(?::\/\/.*?\/|:)(.*).git$/, '$1')
                 env.GIT_ORG_NAME =env.GIT_REPO_NAME.tokenize('/').first()
                 env.GIT_SERVICE_NAME =env.GIT_REPO_NAME.tokenize('/').last()
+                gitMetaData = gitMetaData(env.GIT_URL)
+                env.avdhesh = getMetaData
                 def ex = "test -Dauth0Secret=${variableMap.publicIp} -DawsRegion=${variableMap.awsRegion}"
                 sh 'printenv'
                 runMaven(ex, 'Running smoke tests')
@@ -76,4 +78,14 @@ pipeline {
 String runMaven(final String steps, final String label) {
         echo label
         sh script: "mvn --no-transfer-progress -B -e ${steps}", label: label
+}
+
+String gitMetaData(final String giturl){
+
+    def gitOrgRepoName = giturl.replaceFirst(/^.*?(?::\/\/.*?\/|:)(.*).git$/, '$1')
+    def gitOrgName = gitOrgRepoName.tokenize('/').first()
+    def gitRepoName = gitOrgRepoName.tokenize('/').last()
+    map = [gitOrgName:gitOrgName, gitRepoName:gitRepoName]
+
+    return map
 }
