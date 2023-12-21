@@ -52,6 +52,7 @@ pipeline {
             steps {
                 script {
                 variableMap = [publicIp : '1.1.1.1.1', awsRegion:'asdfg']
+                env.GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*?(?::\/\/.*?\/|:)(.*).git$/, '$1')
                 def ex = "test -Dauth0Secret=${variableMap.publicIp} -DawsRegion=${variableMap.awsRegion}"
                 sh 'printenv'
                 runMaven(ex, 'Running smoke tests')
