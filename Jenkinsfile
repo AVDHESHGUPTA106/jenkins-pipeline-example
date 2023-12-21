@@ -53,7 +53,7 @@ pipeline {
                 script {
                 env.publicIp = "10.10.10.10"
                 env.awsRegion = "us-east-1"
-                def ex = 'test -Dauth0Secret=$env'
+                def ex = 'test -Dauth0Secret='+${env}
                 sh 'printenv'
                 runMaven(ex, 'Running smoke tests')
                 //sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${variableMap.publicIp} -DawsRegion=${variableMap.awsRegion}", label: 'Running smoke tests'
