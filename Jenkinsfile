@@ -67,7 +67,5 @@ pipeline {
 }
 
 String runMaven(final String steps, final String label) {
-    container('maven') {
         sh script: "mvn --no-transfer-progress -B -e ${steps}", label: label
-    }
 }
