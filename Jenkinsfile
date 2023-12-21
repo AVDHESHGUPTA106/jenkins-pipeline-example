@@ -52,6 +52,7 @@ pipeline {
             steps {
                 script {
                 variableMap = [publicIp : "10.10.10.10", awsRegion:"us-east-1"]
+                echo variableMap
                 sh 'printenv'
                 runMaven('test -Dauth0Secret=$variableMap.publicIp -DawsRegion=$variableMap.awsRegion', 'Running smoke tests')
                 //sh script: "mvn --no-transfer-progress -B -e test -Dauth0Secret=${variableMap.publicIp} -DawsRegion=${variableMap.awsRegion}", label: 'Running smoke tests'
