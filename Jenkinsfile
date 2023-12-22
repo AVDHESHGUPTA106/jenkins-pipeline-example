@@ -11,10 +11,7 @@ pipeline {
     stages {
         stage('Terraform init') {
             when {
-                allOf {
-                    environment name: 'CHANGE_ID', value: ''
-                    branch 'master'
-                }
+                branch 'PR-*'
             }
             steps {
                 dir(path: 'tf-tuts') {
