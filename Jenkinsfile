@@ -9,13 +9,13 @@ pipeline {
       jdk 'Java' 
     }
     stages {
-        when {
-            anyOf {
-                changeRequest()
-                branch BRANCH_MAIN
-            }
-        }
         stage('Terraform init') {
+            when {
+                anyOf {
+                    changeRequest()
+                    branch BRANCH_MAIN
+                }
+            }
             steps {
                 dir(path: 'tf-tuts') {
                 sh 'terraform init'
