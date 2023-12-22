@@ -14,6 +14,7 @@ pipeline {
                 changeRequest()
                 branch BRANCH_MAIN
             }
+        }
         stage('Terraform init') {
             steps {
                 dir(path: 'tf-tuts') {
