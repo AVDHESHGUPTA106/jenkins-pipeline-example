@@ -11,9 +11,9 @@ pipeline {
     stages {
         stage('Terraform init') {
             when {
-                anyOf {
-                    changeRequest()
-                    branch BRANCH_MAIN
+                allOf {
+                    environment name: 'CHANGE_ID', value: ''
+                    branch 'master'
                 }
             }
             steps {
