@@ -13,7 +13,7 @@ import java.util.List;
 public class AppTest 
 {
     /**
-     * Rigorous Test :-)
+     * Rigorous Test :-)::
      */
 
     private static final String AWS_REGION = System.getProperty("awsRegion","XYZ");
