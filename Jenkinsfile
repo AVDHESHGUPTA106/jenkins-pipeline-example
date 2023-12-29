@@ -94,8 +94,4 @@ String gitMetaData(final String giturl){
     map = [gitOrg:gitOrgName, gitRepo:gitRepoName]
 
     return map
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 296ad52 (commit jenkin file)
