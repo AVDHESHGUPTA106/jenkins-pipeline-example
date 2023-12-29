@@ -10,6 +10,9 @@ pipeline {
     }
     stages {
         stage('Terraform init') {
+            when {
+                branch 'PR-*'
+            }
             steps {
                 dir(path: 'tf-tuts') {
                 sh 'terraform init'
@@ -51,7 +54,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                variableMap = [publicIp : '1.1.1.1.1', awsRegion:'asdfg']
+                variableMap = [publicIp : '1.1.1.10.1', awsRegion:'asdfg']
                 env.GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*?(?::\/\/.*?\/|:)(.*).git$/, '$1')
                 env.GIT_ORG_NAME =env.GIT_REPO_NAME.tokenize('/').first()
                 env.GIT_SERVICE_NAME =env.GIT_REPO_NAME.tokenize('/').last()
@@ -85,7 +88,7 @@ String gitMetaData(final String giturl){
     def gitOrgRepoName = giturl.replaceFirst(/^.*?(?::\/\/.*?\/|:)(.*).git$/, '$1')
     def gitOrgName = gitOrgRepoName.tokenize('/').first()
     def gitRepoName = gitOrgRepoName.tokenize('/').last()
-    map = [gitOrgName:gitOrgName, gitRepoName:gitRepoName]
+    map = [gitOrg:gitOrgName, gitRepo:gitRepoName]
 
     return map
 }
